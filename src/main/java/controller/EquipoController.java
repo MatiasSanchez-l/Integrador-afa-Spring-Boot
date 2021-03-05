@@ -1,10 +1,14 @@
 package controller;
 
 import DTOs.EquipoDTO;
+import exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.EquipoService;
-import services.EquipoServiceImpl;
+import services.servicesImpl.EquipoServiceImpl;
+
+import javax.servlet.ServletException;
+import java.util.List;
 
 
 @RestController
@@ -14,26 +18,44 @@ public class EquipoController{
     EquipoService equipoServicio = new EquipoServiceImpl();
 
     @GetMapping("/")
-    public EquipoDTO getEquipo(
+    public List<EquipoDTO> getEquipo(
             @RequestParam(name = "id") int idEquipo
-    ) {
-        return equipoServicio.consultarEquipo(idEquipo);
+    ) throws ServletException {
+        try {
+            return equipoServicio.consultarEquipo(idEquipo);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en get " + e.getCause());
+        }
     }
 
-    @PostMapping("/guardar")
+    @PostMapping("/")
     public void postEquipo(
-            @RequestBody EquipoDTO equipoDTO) {
-        equipoServicio.insertarEquipo(equipoDTO);
+            @RequestBody EquipoDTO equipoDTO) throws ServletException {
+        try {
+            equipoServicio.insertarEquipo(equipoDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en post " + e.getCause());
+        }
     }
 
-    @PutMapping("/modificar")
+    @PutMapping("/")
     public void putEquipo(@RequestBody Integer idEquipo,
-                             @RequestBody EquipoDTO equipoDTO) {
-        equipoServicio.modificarEquipo(idEquipo, equipoDTO);
+                             @RequestBody EquipoDTO equipoDTO) throws ServletException {
+        try {
+            equipoServicio.modificarEquipo(idEquipo, equipoDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en put " + e.getCause());
+        }
+
     }
 
-    @DeleteMapping("/borrar")
-    public void deleteEquipo(@RequestBody Integer idEquipo) {
-        equipoServicio.eliminarEquipo(idEquipo);
+    @DeleteMapping("/")
+    public void deleteEquipo(@RequestBody Integer idEquipo) throws ServletException {
+
+        try {
+            equipoServicio.eliminarEquipo(idEquipo);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en delete " + e.getCause());
+        }
     }
 }

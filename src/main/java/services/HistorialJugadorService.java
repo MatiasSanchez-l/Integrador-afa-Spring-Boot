@@ -1,13 +1,16 @@
 package services;
 
 import DTOs.HistorialJugadorDTO;
+import exceptions.ServiceException;
+
+import java.util.List;
 
 public interface HistorialJugadorService {
-    public void insertarHistorial(HistorialJugadorDTO historialDTO);
+    public void insertarHistorial(HistorialJugadorDTO historialDTO) throws ServiceException;
 
-    public void eliminarHistorial(Integer idHistorial);
+    public void eliminarHistorial(Integer idHistorial) throws ServiceException;
 
-    public void modificarHistorial(Integer idHistorial, HistorialJugadorDTO historialDTO);
+    public void modificarHistorial(Integer idHistorial, HistorialJugadorDTO historialDTO) throws ServiceException;
 
-    public HistorialJugadorDTO consultarHistorial(Integer idHistorial);
+    public List<HistorialJugadorDTO> consultarHistorial(Integer idHistorial) throws ServiceException;
 }

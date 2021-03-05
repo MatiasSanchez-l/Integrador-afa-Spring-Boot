@@ -1,46 +1,70 @@
-package services;
-
+package services.servicesImpl;
 
 import DTOs.JugadorDTO;
 import entities.Direccion;
 import entities.Equipo;
 import entities.HistorialJugador;
 import entities.Jugador;
+import exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.JugadorRepository;
+import services.JugadorService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class JugadorServiceImpl implements JugadorService{
+public class JugadorServiceImpl implements JugadorService {
     @Autowired
     JugadorRepository jugadorRepository;
 
     @Override
-    public void insertarJugador(JugadorDTO jugadorDTO) {
-        Jugador jugador = convertirJugadorDtoAEntity(jugadorDTO);
-        jugadorRepository.save(jugador);
+    public void insertarJugador(JugadorDTO jugadorDTO) throws ServiceException {
+        try{
+            Jugador jugador = convertirJugadorDtoAEntity(jugadorDTO);
+            jugadorRepository.save(jugador);
+        }catch (Exception e){
+            throw new ServiceException("DireccionService Error: Error en insertar " + e.getCause());
+        }
     }
 
     @Override
-    public void eliminarJugador(Integer idJugador) {
-        jugadorRepository.deleteById(idJugador);
+    public void eliminarJugador(Integer idJugador) throws ServiceException {
+        try{
+            jugadorRepository.deleteById(idJugador);
+        }catch (Exception e){
+            throw new ServiceException("DireccionService Error: Error en eliminar " + e.getCause());
+        }
     }
 
     @Override
-    public void modificarJugador(Integer idJugador, JugadorDTO jugadorDTO) {
-        Jugador jugador = convertirJugadorDtoAEntity(jugadorDTO);
-        jugador.setId(idJugador);
-        jugadorRepository.save(jugador);
+    public void modificarJugador(Integer idJugador, JugadorDTO jugadorDTO) throws ServiceException {
+        try{
+            Jugador jugador = convertirJugadorDtoAEntity(jugadorDTO);
+            jugador.setId(idJugador);
+            jugadorRepository.save(jugador);
+        }catch (Exception e){
+            throw new ServiceException("DireccionService Error: Error en  modificar " + e.getCause());
+        }
+
     }
 
     @Override
-    public JugadorDTO consultarJugador(Integer idJugador) {
-        Jugador jugador = jugadorRepository.findById(idJugador).get();
-        JugadorDTO jugadorDTO = convertirJugadorEntityADTO(jugador);
-        return jugadorDTO;
+    public List<JugadorDTO> consultarJugador(Integer idJugador) throws ServiceException {
+        try{
+            Iterable<Jugador> jugadores = jugadorRepository.findAll();
+            List<JugadorDTO> jugadoresDTO = new ArrayList<>();
+            for (Jugador jugador:jugadores) {
+                JugadorDTO jugadorDTO = convertirJugadorEntityADTO(jugador);
+                jugadoresDTO.add(jugadorDTO);
+            }
+
+            return jugadoresDTO;
+        }catch (Exception e){
+            throw new ServiceException("DireccionService Error: Error en  consultar " + e.getCause());
+        }
     }
 
     public Jugador convertirJugadorDtoAEntity(JugadorDTO jugadorDto) {

@@ -1,13 +1,16 @@
 package services;
 
 import DTOs.DireccionDTO;
+import exceptions.ServiceException;
+
+import java.util.List;
 
 public interface DireccionService {
-    public void insertarDireccion(DireccionDTO direccionDTO);
+    public void insertarDireccion(DireccionDTO direccionDTO) throws ServiceException;
 
-    public void eliminarDireccion(Integer idDireccion);
+    public void eliminarDireccion(Integer idDireccion) throws ServiceException;
 
-    public void modificarDireccion(Integer idDireccion, DireccionDTO direccionDTO);
+    public void modificarDireccion(Integer idDireccion, DireccionDTO direccionDTO) throws ServiceException;
 
-    public DireccionDTO consultarDireccion(Integer idDireccion);
+    public List<DireccionDTO> consultarDireccion(Integer idDireccion) throws ServiceException;
 }

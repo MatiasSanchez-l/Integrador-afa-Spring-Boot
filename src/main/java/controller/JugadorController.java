@@ -1,10 +1,14 @@
 package controller;
 
 import DTOs.JugadorDTO;
+import exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.JugadorService;
-import services.JugadorServiceImpl;
+import services.servicesImpl.JugadorServiceImpl;
+
+import javax.servlet.ServletException;
+import java.util.List;
 
 
 @RestController
@@ -15,27 +19,46 @@ public class JugadorController{
     JugadorService adicionalService = new JugadorServiceImpl();
 
     @GetMapping("/")
-    public JugadorDTO getJugador(
+    public List<JugadorDTO> getJugador(
             @RequestParam(name = "id") int idJugador
-    ) {
-        return adicionalService.consultarJugador(idJugador);
+    ) throws ServletException {
+        try {
+            return adicionalService.consultarJugador(idJugador);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en get " + e.getCause());
+        }
+
     }
 
-    @PostMapping("/guardar")
+    @PostMapping("/")
     public void postJugador(
-            @RequestBody JugadorDTO jugadorDTO) {
-        adicionalService.insertarJugador(jugadorDTO);
+            @RequestBody JugadorDTO jugadorDTO) throws ServletException {
+        try {
+            adicionalService.insertarJugador(jugadorDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en post " + e.getCause());
+        }
+
     }
 
-    @PutMapping("/modificar")
+    @PutMapping("/")
     public void putJugador(@RequestBody Integer idJugador,
-                          @RequestBody JugadorDTO jugadorDTO) {
-        adicionalService.modificarJugador(idJugador, jugadorDTO);
+                          @RequestBody JugadorDTO jugadorDTO) throws ServletException {
+        try {
+            adicionalService.modificarJugador(idJugador, jugadorDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en put " + e.getCause());
+        }
     }
 
-    @DeleteMapping("/borrar")
-    public void deleteJugador(@RequestBody Integer idJugador) {
-        adicionalService.eliminarJugador(idJugador);
+    @DeleteMapping("/")
+    public void deleteJugador(@RequestBody Integer idJugador) throws ServletException {
+
+        try {
+            adicionalService.eliminarJugador(idJugador);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en delete " + e.getCause());
+        }
     }
 
 }

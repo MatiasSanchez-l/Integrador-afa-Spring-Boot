@@ -1,10 +1,14 @@
 package controller;
 
 import DTOs.DireccionDTO;
+import exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.DireccionService;
-import services.DireccionServiceImpl;
+import services.servicesImpl.DireccionServiceImpl;
+
+import javax.servlet.ServletException;
+import java.util.List;
 
 
 @RestController
@@ -14,25 +18,43 @@ public class DireccionController{
     DireccionService direccionService = new DireccionServiceImpl();
 
     @GetMapping("/")
-    public DireccionDTO getDireccion(
+    public List<DireccionDTO> getDireccion(
             @RequestParam(name = "id") int idDireccion
-            ) {
-        return direccionService.consultarDireccion(idDireccion);
+            ) throws ServletException {
+        try {
+            return direccionService.consultarDireccion(idDireccion);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en get " + e.getCause());
+        }
     }
-    @PostMapping("/guardar")
+    @PostMapping("/")
     public void postDireccion(
-            @RequestBody DireccionDTO direccionDTO) {
-        direccionService.insertarDireccion(direccionDTO);
+            @RequestBody DireccionDTO direccionDTO) throws ServletException {
+        try {
+            direccionService.insertarDireccion(direccionDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en post " + e.getCause());
+        }
     }
 
-    @PutMapping("/modificar")
+    @PutMapping("/")
     public void putDireccion(@RequestBody Integer idDireccion,
-                             @RequestBody DireccionDTO direccionDTO) {
-        direccionService.modificarDireccion(idDireccion, direccionDTO);
+                             @RequestBody DireccionDTO direccionDTO) throws ServletException {
+        try {
+            direccionService.modificarDireccion(idDireccion, direccionDTO);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en put " + e.getCause());
+        }
+
     }
 
-    @DeleteMapping("/borrar")
-    public void deleteDireccion(@RequestBody Integer idDireccion) {
-        direccionService.eliminarDireccion(idDireccion);
+    @DeleteMapping("/")
+    public void deleteDireccion(@RequestBody Integer idDireccion) throws ServletException {
+        try {
+            direccionService.eliminarDireccion(idDireccion);
+        }catch (ServiceException e){
+            throw new ServletException("Servlet Error: Error en delete " + e.getCause());
+        }
+
     }
 }
