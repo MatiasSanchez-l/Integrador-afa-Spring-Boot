@@ -19,10 +19,9 @@ public class DireccionController{
 
     @GetMapping("/")
     public List<DireccionDTO> getDireccion(
-            @RequestParam(name = "id") int idDireccion
             ) throws ServletException {
         try {
-            return direccionService.consultarDireccion(idDireccion);
+            return direccionService.consultarDireccion();
         }catch (ServiceException e){
             throw new ServletException("Servlet Error: Error en get " + e.getCause());
         }

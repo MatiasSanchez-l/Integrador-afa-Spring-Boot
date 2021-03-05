@@ -12,5 +12,5 @@ public interface JugadorService {
 
     public void modificarJugador(Integer idJugador, JugadorDTO jugadorDTO) throws ServiceException;
 
-    public List<JugadorDTO> consultarJugador(Integer idJugador) throws ServiceException;
+    public List<JugadorDTO> consultarJugador() throws ServiceException;
 }

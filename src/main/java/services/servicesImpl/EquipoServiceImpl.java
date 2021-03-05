@@ -49,7 +49,7 @@ public class EquipoServiceImpl implements EquipoService {
     }
 
     @Override
-    public List<EquipoDTO> consultarEquipo(Integer idEquipo) throws ServiceException {
+    public List<EquipoDTO> consultarEquipo() throws ServiceException {
         try{
             Iterable <Equipo> equipos = equipoRepository.findAll();
             List<EquipoDTO> equiposDTO = new ArrayList<>();

@@ -52,7 +52,7 @@ public class HistorialJugadorServiceImpl implements HistorialJugadorService {
     }
 
     @Override
-    public List<HistorialJugadorDTO> consultarHistorial(Integer idHistorial) throws ServiceException {
+    public List<HistorialJugadorDTO> consultarHistorial() throws ServiceException {
         try{
             Iterable<HistorialJugador> historiales = historialJugadorRepository.findAll();
             List<HistorialJugadorDTO> historialesDTO = new ArrayList<>();

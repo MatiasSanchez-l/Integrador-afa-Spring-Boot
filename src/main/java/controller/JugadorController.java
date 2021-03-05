@@ -19,11 +19,9 @@ public class JugadorController{
     JugadorService adicionalService = new JugadorServiceImpl();
 
     @GetMapping("/")
-    public List<JugadorDTO> getJugador(
-            @RequestParam(name = "id") int idJugador
-    ) throws ServletException {
+    public List<JugadorDTO> getJugador() throws ServletException {
         try {
-            return adicionalService.consultarJugador(idJugador);
+            return adicionalService.consultarJugador();
         }catch (ServiceException e){
             throw new ServletException("Servlet Error: Error en get " + e.getCause());
         }

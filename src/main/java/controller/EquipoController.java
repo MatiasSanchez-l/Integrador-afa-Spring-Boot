@@ -18,11 +18,9 @@ public class EquipoController{
     EquipoService equipoServicio = new EquipoServiceImpl();
 
     @GetMapping("/")
-    public List<EquipoDTO> getEquipo(
-            @RequestParam(name = "id") int idEquipo
-    ) throws ServletException {
+    public List<EquipoDTO> getEquipo() throws ServletException {
         try {
-            return equipoServicio.consultarEquipo(idEquipo);
+            return equipoServicio.consultarEquipo();
         }catch (ServiceException e){
             throw new ServletException("Servlet Error: Error en get " + e.getCause());
         }

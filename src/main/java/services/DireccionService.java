@@ -12,5 +12,5 @@ public interface DireccionService {
 
     public void modificarDireccion(Integer idDireccion, DireccionDTO direccionDTO) throws ServiceException;
 
-    public List<DireccionDTO> consultarDireccion(Integer idDireccion) throws ServiceException;
+    public List<DireccionDTO> consultarDireccion() throws ServiceException;
 }

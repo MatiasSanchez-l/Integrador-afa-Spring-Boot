@@ -14,5 +14,5 @@ public interface EquipoService {
 
     public void modificarEquipo(Integer idEquipo, EquipoDTO equipoDTO) throws ServiceException;
 
-    public List<EquipoDTO> consultarEquipo(Integer idEquipo) throws ServiceException;
+    public List<EquipoDTO> consultarEquipo() throws ServiceException;
 }

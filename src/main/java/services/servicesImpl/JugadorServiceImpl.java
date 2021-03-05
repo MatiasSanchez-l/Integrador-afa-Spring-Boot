@@ -52,7 +52,7 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    public List<JugadorDTO> consultarJugador(Integer idJugador) throws ServiceException {
+    public List<JugadorDTO> consultarJugador() throws ServiceException {
         try{
             Iterable<Jugador> jugadores = jugadorRepository.findAll();
             List<JugadorDTO> jugadoresDTO = new ArrayList<>();

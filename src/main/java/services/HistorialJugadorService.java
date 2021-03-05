@@ -12,5 +12,5 @@ public interface HistorialJugadorService {
 
     public void modificarHistorial(Integer idHistorial, HistorialJugadorDTO historialDTO) throws ServiceException;
 
-    public List<HistorialJugadorDTO> consultarHistorial(Integer idHistorial) throws ServiceException;
+    public List<HistorialJugadorDTO> consultarHistorial() throws ServiceException;
 }

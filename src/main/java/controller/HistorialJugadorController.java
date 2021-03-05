@@ -17,11 +17,9 @@ public class HistorialJugadorController{
     HistorialJugadorService historialService = new HistorialJugadorServiceImpl();
 
     @GetMapping("/")
-    public List<HistorialJugadorDTO> getHistorial(
-            @RequestParam(name = "id") int idHistorial
-    ) throws ServletException {
+    public List<HistorialJugadorDTO> getHistorial() throws ServletException {
         try {
-            return historialService.consultarHistorial(idHistorial);
+            return historialService.consultarHistorial();
         }catch (ServiceException e){
             throw new ServletException("Servlet Error: Error en get " + e.getCause());
         }

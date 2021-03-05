@@ -52,7 +52,7 @@ public class DireccionServiceImpl implements DireccionService {
     }
 
     @Override
-    public List<DireccionDTO> consultarDireccion(Integer idDireccion) throws ServiceException {
+    public List<DireccionDTO> consultarDireccion() throws ServiceException {
         try{
             Iterable <Direccion> direcciones = direccionRepository.findAll();
             List<DireccionDTO> direccionesDto = new ArrayList<>();
